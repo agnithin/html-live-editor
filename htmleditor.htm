@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<title>HTML Live Editor</title>
+<style type="text/css">
+#header
+{
+	background-color:#b0c4de; 
+	padding:1px 10px;
+}
+
+#source_editor
+{
+	float:left;
+	border-style:solid;
+	border-width:2px;
+	width:48%;
+	min-height:500px;
+}
+
+#html_out
+{
+	float:right;
+	border-style:solid;
+	border-width:2px;
+	width:48%;
+	min-height:500px;
+}
+
+#src_text
+{
+	width:99%;
+	height:500px;
+}
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link rel="stylesheet" href="styles/default.css">
+<link rel="alternate stylesheet" title="Google Code" href="styles/googlecode.css">
+<script src="js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header">
+  <h2>HTML Live Editor</h2>
+</div>
+
+<div id="source_editor" class="xml">
+  <!--<textarea id="src_text"></textarea> -->
+  <pre>
+<code  contenteditable="true" >
+&lt;body&gt;
+  &lt;p class="something" id='12'&gt;Something&lt;/p&gt;
+  &lt;p class=something&gt;Something&lt;/p&gt;
+  &lt;!-- comment --&gt;
+  &lt;p class&gt;Something&lt;/p&gt;
+  &lt;p class="something" title="p"&gt;Something&lt;/p&gt;
+&lt;/body&gt;
+
+</code>
+  </pre>
+</div>
+
+<div id="html_out">
+</div>
+
+<script>
+//var sample_html = "<h2>Type your HTML on the left and see the output in the right</h2>";
+
+//$("#source_editor").text(sample_html);
+
+$('#source_editor').live('focus', function() {
+  before = $(this).html();
+}).live('blur keyup paste', function() { 
+  if (before != $(this).html()) { $(this).trigger('change'); }
+});
+
+$('#source_editor').live('change', function() {
+	$('#html_out').html($("#source_editor").text());
+	hljs.initHighlightingOnLoad();
+});
+//document.getElementById("source_editor").innerHTML = sample_html;
+</script>
+
+
+</body>
